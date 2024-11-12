@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const RegisterPage(),
+      //for debug show checked mode banner
       debugShowCheckedModeBanner: false,
     );
   }
@@ -46,6 +47,11 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +63,78 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ),
         backgroundColor: Colors.blue,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            Text('Name'),
+            SizedBox(
+              height: 5,
+            ),
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Name',
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text('Email'),
+            SizedBox(
+              height: 5,
+            ),
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Email',
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text('Mobile'),
+            SizedBox(
+              height: 5,
+            ),
+            TextField(
+              controller: mobileController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Mobile',
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text('Address'),
+            SizedBox(
+              height: 5,
+            ),
+            TextField(
+              controller: addressController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Address',
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                'Register',
+                style: TextStyle(
+                  fontSize: 25,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
