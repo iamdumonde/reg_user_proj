@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:reg_user_proj/pages/user_list.dart';
+import 'package:reg_user_proj/service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,21 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -52,11 +38,14 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController addressController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
 
+  // create the service class object
+  Service service = Service();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Registration Page',
           style: TextStyle(
             color: Colors.white,
@@ -65,74 +54,99 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: Colors.blue,
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            Text('Name'),
-            SizedBox(
+            const Text('Name'),
+            const SizedBox(
               height: 5,
             ),
             TextField(
               controller: nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter Name',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text('Email'),
-            SizedBox(
+            const Text('Email'),
+            const SizedBox(
               height: 5,
             ),
             TextField(
               controller: emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter Email',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text('Mobile'),
-            SizedBox(
+            const Text('Mobile'),
+            const SizedBox(
               height: 5,
             ),
             TextField(
               controller: mobileController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter Mobile',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text('Address'),
-            SizedBox(
+            const Text('Address'),
+            const SizedBox(
               height: 5,
             ),
             TextField(
               controller: addressController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter Address',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                service.saveUser(nameController.text, mobileController.text,
+                    emailController.text, addressController.text);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+              ),
               child: Text(
                 'Register',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
+                  color: Colors.white,
                 ),
               ),
-            )
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: ()
+                  // Naviguer vers la page UsersList
+                  {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UsersList()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
+              child: const Text(
+                'Voir les utilisateurs',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
